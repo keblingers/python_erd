@@ -1,4 +1,6 @@
-__pycache__/
-*.py[cod]
-*$py.class
-eralchemyenv/
+.env
+.venv
+env/
+venv/
+ENV/
+__pycache__

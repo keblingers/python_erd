@@ -1,8 +1,34 @@
 import inquirer
 import pandas as pd
 from db_config import sqlalchemy_conn
+from eralchemy import render_er
+
+def manual_process():
+    questions = [
+        inquirer.Text('uname',message="Username :"),
+        inquirer.Text('passwd',message="Password :"),
+        inquirer.Text('dbname',message="Database Name :"),
+        inquirer.Text('host',message="Hostname :"),
+        inquirer.Text('dtype',message="DB Type :"),
+        inquirer.Text('ddriver',message="DB Driver :"),
+    ]
+
+def config_process():
+    conn = sqlalchemy_conn()
+    render_er(conn, 'test.png')
+
+def gen_erd():
+    render_er("mysql://kancut:K4ngCut#15@43.129.44.117/grafanadb",'test.png')
+
 
 if __name__ == '__main__':
-    questions = [inquirer.List('pilihan',message='which config do you want to use?', choices=['Manual','Config File'],)]
+    questions = [inquirer.List('pilihan',message='which config do you want to use?', choices=['Manual','Config_File'],)]
     answer = inquirer.prompt(questions)
-    print(answer)
+    #print(answer['pilihan'])
+    if answer['pilihan'] == "Manual":
+        manual_process()
+    elif answer['pilihan'] == "Config_File":
+        gen_erd()
+        #print('a')
+        #config_process()
+    #print(answer)
