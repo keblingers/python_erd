@@ -5,14 +5,14 @@ import os
 
 def get_variables():
     load_dotenv()
-    username = os.environ['UNAME'].split(",")
+    uname = os.environ['UNAME'].split(",")
     passwd = os.environ['PASSWD'].split(",")
     database = os.environ['DATABASE'].split(",")
     host = os.environ['HOST'].split(",")
     db_type = os.environ['DB_TYPE'].split(",")
     db_driver = os.environ['DB_DRIVER'].split(",")
 
-    df = pd.DataFrame(list(zip(username,passwd,database,host,db_type,db_driver)),columns=['username','passwd','database','host','db_type','db_driver'])
+    df = pd.DataFrame(list(zip(uname,passwd,database,host,db_type,db_driver)),columns=['username','passwd','database','host','db_type','db_driver'])
     data = df.query("db_type == @by_type")
 
     return data['username'].iloc[0],data['passwd'].iloc[0],data['database'].iloc[0],data['host'].iloc[0],data['db_driver'].iloc[0]
